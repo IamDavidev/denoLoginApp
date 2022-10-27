@@ -19,12 +19,10 @@ const regexEmail = new RegExp(
 	/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 );
 const regexPassword = new RegExp(
-	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+	/^.*(?=.{6,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!&$%&? "]).*$/
 );
 const regexName = new RegExp(/^[a-zA-Z]{2,}$/);
 // const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-console.info('🚀 ~>  file: app.ts ~>  line 11 ~>  regexEmail', regexEmail);
 
 // function to uuid
 type THasUuid = string;
@@ -38,7 +36,7 @@ export function validateUUID(uuidReq: THasUuid): boolean {
 	return uuid.v5.validate(uuidReq);
 }
 
-// routes
+// Endpoints
 router.post('/register', async ({ request, response }) => {
 	const result = request.body({
 		type: 'json',
@@ -53,18 +51,22 @@ router.post('/register', async ({ request, response }) => {
 	if (!validateUUID(id)) {
 		response.status = 400;
 		response.body = "The id isn't valid";
+		return;
 	}
 	if (!regexEmail.test(email)) {
 		response.status = 400;
 		response.body = "The email isn't valid";
+		return;
 	}
 	if (!regexPassword.test(password)) {
 		response.status = 400;
 		response.body = "The password isn't valid";
+		return;
 	}
 	if (!regexName.test(name)) {
 		response.status = 400;
 		response.body = "The name isn't valid";
+		return;
 	}
 
 	// check if user is already registered
@@ -74,7 +76,18 @@ router.post('/register', async ({ request, response }) => {
 	if (isUserAlreadyRegistered) {
 		response.status = 409;
 		response.body = 'The user is already registered';
+		return;
 	}
+
+	users.push({
+		id,
+		name,
+		email,
+		password,
+	});
+	console.log('User >> []<<< ', users);
+	response.status = 201;
+	response.body = 'User created';
 });
 
 // middlewares
