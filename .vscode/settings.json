@@ -2,4 +2,5 @@
     "deno.enable": true,
     "eslint.enable": true,
     "deno.lint": true,
+    "deno.importMap": "./import_map.json"
 }

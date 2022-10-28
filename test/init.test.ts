@@ -1,10 +1,14 @@
-// import { assertEquals } from 'https://deno.land/std@0.152.0/testing/asserts.ts';
 import {
 	assertEquals,
 	assertNotEquals,
 } from 'https://deno.land/std@0.152.0/testing/asserts.ts';
-import { describe, it } from 'https://deno.land/std@0.161.0/testing/bdd.ts';
-import { app } from '../src/app.ts';
+import {
+	beforeAll,
+	beforeEach,
+	describe,
+	it,
+} from 'https://deno.land/std@0.161.0/testing/bdd.ts';
+import { app } from '@/src/app.ts';
 
 // {
 //   "id": "019f6be7-b9f4-5246-94fe-147a5617f8fe",
@@ -26,11 +30,22 @@ const newUser = {
 	password: '352xALX&Jmsq',
 };
 const port = 8083;
+
+let abortController: AbortController;
+
 describe('Test Enpoint ', () => {
-	it('[POST USERS] Shuold return array of users ', async () => {
-		const abortController: AbortController = new AbortController();
-		const { signal } = abortController;
-		app.listen({ port, signal });
+	beforeEach(() => {
+		abortController = new AbortController();
+		const signal: AbortSignal = abortController.signal;
+		app.listen({
+			port,
+			signal,
+		});
+	});
+	it('[POST USERS] Shuold create User in BBDD', async () => {
+		// const abortController: AbortController = new AbortController();
+		// const { signal } = abortController;
+		// app.listen({ port, signal });
 		try {
 			const response = await fetch('http://localhost:8083/register', {
 				body: JSON.stringify(newUser),
@@ -53,9 +68,9 @@ describe('Test Enpoint ', () => {
 	});
 
 	it('[GET USERS] Shuold return array of users ', async () => {
-		const abortController: AbortController = new AbortController();
-		const { signal } = abortController;
-		app.listen({ port, signal });
+		// const abortController: AbortController = new AbortController();
+		// const { signal } = abortController;
+		// app.listen({ port, signal });
 		try {
 			const response = await fetch('http://localhost:8083/users', {
 				method: METHODS_FETCH._GET_,
