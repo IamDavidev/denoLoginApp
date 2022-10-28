@@ -9,7 +9,8 @@
         }
     },
     "tasks": {
-        "run::app": " deno run --allow-net --watch --config deno.json --unstable src/app.ts"
+        "run::app": " deno run --allow-net --watch --config deno.json --unstable src/app.ts",
+        "run::tst": " deno test --allow-net --watch --config deno.json --unstable  --trace-ops test/init.test.ts"
     },
     "fmt": {
         "options": {
