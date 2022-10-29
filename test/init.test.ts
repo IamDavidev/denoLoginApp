@@ -43,9 +43,6 @@ describe('Test Enpoint ', () => {
 		});
 	});
 	it('[POST USERS] Shuold create User in BBDD', async () => {
-		// const abortController: AbortController = new AbortController();
-		// const { signal } = abortController;
-		// app.listen({ port, signal });
 		try {
 			const response = await fetch('http://localhost:8083/register', {
 				body: JSON.stringify(newUser),
@@ -66,11 +63,7 @@ describe('Test Enpoint ', () => {
 			console.log('Errror', err);
 		}
 	});
-
 	it('[GET USERS] Shuold return array of users ', async () => {
-		// const abortController: AbortController = new AbortController();
-		// const { signal } = abortController;
-		// app.listen({ port, signal });
 		try {
 			const response = await fetch('http://localhost:8083/users', {
 				method: METHODS_FETCH._GET_,

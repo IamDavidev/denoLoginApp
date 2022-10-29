@@ -1,1 +1,5 @@
 models.json
+.docker_envs
+.env
+node_modules
+package-lock.json

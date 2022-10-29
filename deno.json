@@ -3,7 +3,9 @@
     "tasks": {
         "run::app": " deno run --allow-net --watch --config deno.json --import-map import_map.json  --unstable src/server.ts",
         "run::tst:watch": " deno test --allow-net --watch --config deno.json --unstable --import-map import_map.json  --trace-ops test/init.test.ts",
-        "run::tst": "deno test --allow-net --config deno.json --unstable --import-map import_map.json  --trace-ops test/init.test.ts"
+        "run::tst": "deno test --allow-net --config deno.json --unstable --import-map import_map.json  --trace-ops test/init.test.ts",
+        "up::db": "docker-compose up -d",
+        "down::db": "docker-compose down"
     },
     "fmt": {
         "options": {

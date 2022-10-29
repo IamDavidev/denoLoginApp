@@ -2,7 +2,7 @@ import { red, yellow } from '$fmt/colors.ts';
 import { Application, Router, type RouterContext } from '$oak/mod.ts';
 import * as uuid from 'https://deno.land/std@0.119.0/uuid/mod.ts';
 
-import { addUserToBBDD, findUserById, UsersBBDD } from '@/src/db/bbdd.db.ts';
+import { addUserToBBDD, findUserById, UsersBBDD } from '@/src/db/users.db.ts';
 import { type User as _User } from '@/src/interfaces/user.type.ts';
 import { IValidUser } from '@/src/interfaces/validUser.inteface.ts';
 import userRegisterAdapter from '@/src/userRegister.adapter.ts';
@@ -25,6 +25,7 @@ export function validateUUID(uuidReq: THasUuid): boolean {
 }
 
 // Endpoints
+
 router
 	.post('/register', async (ctx: RouterContext<'/register'>) => {
 		const { request, response } = ctx;
