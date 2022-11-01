@@ -1,6 +1,7 @@
 {
     "imports": {
         "@/": "./",
+        "@/prisma-client": "./genrated/client/deno/edge.ts",
         "$oak/": "https://deno.land/x/oak@v11.1.0/",
         "$fmt/": "https://deno.land/std@0.161.0/fmt/"
     }
