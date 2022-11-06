@@ -1,6 +1,5 @@
 import prisma from '@/src/client/prism.client.ts';
 import { User } from '../entities/user.entity.ts';
-import { User } from '../interfaces/user.type.ts';
 
 export async function findUserById(id: string) {
 	if (!id || typeof id !== 'string') return null;
