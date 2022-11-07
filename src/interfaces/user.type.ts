@@ -3,12 +3,7 @@ export enum Role {
 	User = 'User',
 	Guest = 'Guest',
 }
-// export const Role = {
-// 	Admin: 'Admin',
-// 	User: 'User',
-// 	Guest: 'Guest',
-// };
-// export type Role = typeof Role[keyof typeof Role];
+
 export type User = {
 	id: string;
 	name: string;

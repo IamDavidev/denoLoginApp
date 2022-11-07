@@ -11,7 +11,7 @@ import {
 	it,
 } from 'https://deno.land/std@0.161.0/testing/bdd.ts';
 
-import { Role, User } from '../src/interfaces/user.type.ts';
+import { Role, User } from '@/src/interfaces/user.type.ts';
 
 // {
 //   "id": "019f6be7-b9f4-5246-94fe-147a5617f8fe",
