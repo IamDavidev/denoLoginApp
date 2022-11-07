@@ -2,7 +2,11 @@ import { red, yellow } from '$fmt/colors.ts';
 import { Application, Router, type RouterContext } from '$oak/mod.ts';
 import * as uuid from 'https://deno.land/std@0.119.0/uuid/mod.ts';
 
-import { createUser, findUserById } from '@/src/db/functions.db.ts';
+import {
+	createUser,
+	findUserById,
+	getAllUsers,
+} from '@/src/db/functions.db.ts';
 import { ValidUser } from '@/src/interfaces/validUser.inteface.ts';
 import userRegisterAdapter from '@/src/userRegister.adapter.ts';
 
@@ -35,16 +39,23 @@ router
 				type: 'json',
 			})
 		);
+		console.info(
+			'🚀 ~>  file: app.ts ~>  line 42 ~>  .post ~>  registerUserValid',
+			registerUserValid
+		);
+
 		if (!registerUserValid.isValid) {
 			response.status = registerUserValid.status;
 			response.body = registerUserValid.messageError;
 			return;
 		}
+
 		const User = registerUserValid.user as ValidUser;
+
 		const isUserAlreadyRegistered = await findUserById(User.id);
-		if (typeof isUserAlreadyRegistered !== 'undefined') {
+		if (isUserAlreadyRegistered) {
 			response.status = 409;
-			response.body = 'The user is already registered';
+			response.body = 'User already registered';
 			return;
 		}
 		createUser(User);
@@ -54,9 +65,14 @@ router
 		response.status = registerUserValid.status;
 		response.body = User;
 	})
-	.get('/users', (ctx: RouterContext<'/users'>) => {
+	.get('/users', async (ctx: RouterContext<'/users'>) => {
 		const { response } = ctx;
-		response.body = 'Hello world';
+
+		const users = await getAllUsers();
+
+		console.info('🚀 ~>  file: app.ts ~>  line 61kk ~>  .get ~>  users', users);
+
+		response.body = users;
 		// const users = Array.from(UsersBBDD.values());
 		// response.body = s;
 	});

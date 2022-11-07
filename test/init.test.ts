@@ -1,14 +1,17 @@
+import 'https://deno.land/x/dotenv@v3.2.0/load.ts';
+import { app } from '@/src/app.ts';
+
 import {
 	assertEquals,
 	assertNotEquals,
 } from 'https://deno.land/std@0.152.0/testing/asserts.ts';
 import {
-	beforeAll,
 	beforeEach,
 	describe,
 	it,
 } from 'https://deno.land/std@0.161.0/testing/bdd.ts';
-import { app } from '@/src/app.ts';
+
+import { Role, User } from '../src/interfaces/user.type.ts';
 
 // {
 //   "id": "019f6be7-b9f4-5246-94fe-147a5617f8fe",
@@ -22,16 +25,17 @@ enum METHODS_FETCH {
 	_PUT_ = 'PUT',
 }
 
-const newUser = {
-	id: '8e393fa5-b964-56a3-a100-40a53c6b1419',
+const newUser: User = {
+	id: '627fe846de8030ff5224c84a',
 	name: 'Jhon',
 	email: 'David@david.com',
-	// password: 'XLQPswQLpD4x60nb8hcg',
 	password: '352xALX&Jmsq',
+	role: Role.Guest,
+	uuid: '8e393fa5-b964-56a3-a100-40a53c6b1419',
 };
 const port = 8083;
 
-let abortController: AbortController;
+let abortController: AbortController | null;
 
 describe('Test Enpoint ', () => {
 	beforeEach(() => {
@@ -42,6 +46,7 @@ describe('Test Enpoint ', () => {
 			signal,
 		});
 	});
+
 	it('[POST USERS] Shuold create User in BBDD', async () => {
 		try {
 			const response = await fetch('http://localhost:8083/register', {
@@ -57,12 +62,14 @@ describe('Test Enpoint ', () => {
 				data
 			);
 			assertEquals(response.ok, true, 'response is not ok');
-			abortController.abort();
+			abortController?.abort();
+			abortController = null;
 		} catch (err) {
-			abortController.abort();
+			abortController?.abort();
 			console.log('Errror', err);
 		}
 	});
+
 	it('[GET USERS] Shuold return array of users ', async () => {
 		try {
 			const response = await fetch('http://localhost:8083/users', {
@@ -73,9 +80,10 @@ describe('Test Enpoint ', () => {
 			});
 			const data = await response.json();
 			assertNotEquals(data, null, 'data is null');
-			abortController.abort();
+			abortController?.abort();
+			abortController = null;
 		} catch (err) {
-			abortController.abort();
+			abortController?.abort();
 			console.log('Errror', err);
 		}
 	});

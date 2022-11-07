@@ -10,9 +10,9 @@ import { IValidRegisterUser } from '@/src/interfaces/validUser.inteface.ts';
 async function userRegisterAdapter(
 	body: BodyJson
 ): Promise<IValidRegisterUser> {
-	const { name, id, email, password } = await body.value;
+	const { name, id, email, password, role, uuid } = await body.value;
 
-	if (!validateUUID(id))
+	if (!validateUUID(uuid))
 		return {
 			isValid: false,
 			messageError: "The id isn't valid",
@@ -42,15 +42,26 @@ async function userRegisterAdapter(
 			user: null,
 		};
 
+	if (typeof uuid !== 'string') {
+		return {
+			isValid: false,
+			messageError: "The uuid isn't valid",
+			status: 400,
+			user: null,
+		};
+	}
+
 	return {
 		isValid: true,
 		messageError: '',
 		status: 200,
 		user: {
+			uuid,
 			id,
 			name,
 			email,
 			password,
+			role,
 		},
 	};
 }

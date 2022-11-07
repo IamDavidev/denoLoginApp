@@ -1,17 +1,29 @@
 import prisma from '@/src/client/prism.client.ts';
-import { User } from '../entities/user.entity.ts';
+import { User } from '@/src/entities/user.entity.ts';
 
 export async function findUserById(id: string) {
-	if (!id || typeof id !== 'string') return null;
+	console.info(
+		'🚀 ~>  file: functions.db.ts ~>  line 5 ~>  findUserById ~>  id',
+		id
+	);
+	if (!id || typeof id !== 'string') throw new Error('id is not valid');
 	try {
 		const user = await prisma.user.findUnique({
 			where: {
 				id: id,
 			},
 		});
-		if (user !== undefined) return user;
-		return null;
+		console.info(
+			'🚀 ~>  file: functions.db.ts ~>  line 16 ~>  findUserById ~>  s',
+			user
+		);
+		if (user === undefined) return null;
+		return user;
 	} catch (err) {
+		console.log(
+			'🚀 ~ file: functions.db.ts ~ line 18 ~ findUserById ~ err',
+			err
+		);
 		throw new Error(err);
 	}
 }
@@ -24,10 +36,15 @@ export async function findUserByEmail(email: string) {
 				email,
 			},
 		});
+		console.info(
+			'🚀 ~>  file: functions.db.ts ~>  line 35 ~>  findUserByEmail ~>  user',
+			user
+		);
 
-		if (user !== null) return user;
-		return null;
+		if (user === null) return null;
+		return user;
 	} catch (err) {
+		console.log('🚀 ~ file: functions.db.ts ~ findUserByEmail ~ err', err);
 		throw new Error(err);
 	}
 }
@@ -47,5 +64,14 @@ export async function createUser(user: User) {
 		});
 	} catch (err) {
 		throw new Error(err);
+	}
+}
+
+export async function getAllUsers() {
+	try {
+		const users = await prisma.user.findMany();
+		return users;
+	} catch (err) {
+		console.log('Error: ', err);
 	}
 }
