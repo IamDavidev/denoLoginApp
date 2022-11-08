@@ -1,5 +1,5 @@
-import prisma from '@/src/client/prism.client.ts';
 import { User } from '@/src/entities/user.entity.ts';
+import prisma from '@/src/infrastruture/client/prism.client.ts';
 
 export async function findUserById(id: string) {
 	console.info(
