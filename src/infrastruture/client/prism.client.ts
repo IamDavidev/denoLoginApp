@@ -1,5 +1,5 @@
-import { PrismaClient } from '@/prisma-client';
+import { PrismaClient } from '@/prisma-client/deno/edge.ts';
 
-const prisma = new PrismaClient();
+const prisma: PrismaClient = new PrismaClient();
 
 export default prisma;
