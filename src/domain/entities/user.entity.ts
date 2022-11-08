@@ -1,4 +1,4 @@
-import { Role } from '@/src/interfaces/user.type.ts';
+import { Role } from '@/interfaces/user.type.ts';
 
 export class User {
 	constructor(
