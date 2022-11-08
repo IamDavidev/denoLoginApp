@@ -1,11 +1,13 @@
 import { type BodyJson } from '$oak/body.ts';
+
+import { IValidRegisterUser } from '@/interfaces/validUser.inteface.ts';
+
 import {
 	regexEmail,
 	regexName,
 	regexPassword,
 	validateUUID,
-} from '@/src/Validations.ts';
-import { IValidRegisterUser } from '@/src/interfaces/validUser.inteface.ts';
+} from '@/Validations.ts';
 
 async function userRegisterAdapter(
 	body: BodyJson

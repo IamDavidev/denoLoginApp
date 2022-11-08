@@ -4,7 +4,7 @@
         "@application/": "./src/application/",
         "@infrastructure/": "./src/infrastructure/",
         "@/": "./src/",
-        "@/prisma-client": "./genrated/client/deno/edge.ts",
+        "@/prisma-client/": "./genrated/client/",
         "$oak/": "https://deno.land/x/oak@v11.1.0/",
         "$fmt/": "https://deno.land/std@0.161.0/fmt/"
     }

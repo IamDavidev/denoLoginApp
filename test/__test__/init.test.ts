@@ -1,5 +1,5 @@
 import 'https://deno.land/x/dotenv@v3.2.0/load.ts';
-import { app } from '@/src/app.ts';
+import app from '@/infrastruture/app.ts';
 
 import {
 	assertEquals,
@@ -10,8 +10,8 @@ import {
 	describe,
 	it,
 } from 'https://deno.land/std@0.161.0/testing/bdd.ts';
-
-import { Role, User } from '@/src/interfaces/user.type.ts';
+// import { Role } from "@/prisma-client/deno/index.d.ts";
+import { Role, User } from '@/interfaces/user.type.ts';
 
 // {
 //   "id": "019f6be7-b9f4-5246-94fe-147a5617f8fe",
