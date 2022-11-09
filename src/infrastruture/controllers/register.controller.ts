@@ -1,8 +1,9 @@
 import { type RouterContext } from '$oak/router.ts';
 
-import userRegisterAdapter from '@/userRegister.adapter.ts';
+// import userRegisterAdapter from '@/userRegister.adapter.ts';
 import UserRepository from '@/infrastruture/respositories/user.repository.ts';
 import { ValidUser } from '@/interfaces/validUser.inteface.ts';
+import userRegisterAdapter from '@/infrastruture/userRegister.adapter.ts';
 
 export default async function registerController(
 	ctx: RouterContext<'/register'>
@@ -25,11 +26,13 @@ export default async function registerController(
 	const User = registerUserValid.user as ValidUser;
 
 	const isUserAlreadyRegistered = await userRepository.findUserById(User.id);
+
 	if (isUserAlreadyRegistered) {
 		response.status = 409;
 		response.body = 'User already registered';
 		return;
 	}
+
 	userRepository.createUser(User);
 
 	console.log('User added to BBDD: 	1', User);
